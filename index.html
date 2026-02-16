@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منشئ الروابط المختصرة</title>
+<title>نظام اختصار الروابط</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -12,20 +12,18 @@ body {
     background: #f4f6f9;
     font-family: Tahoma, sans-serif;
 }
-
 .card {
     border-radius: 15px;
+    padding: 20px;
+    margin-top: 50px;
 }
-
 .btn-main {
     background: #0d6efd;
     border: none;
 }
-
 .btn-main:hover {
     background: #0b5ed7;
 }
-
 .share-btn {
     width: 45px;
     height: 45px;
@@ -38,22 +36,20 @@ body {
     margin: 5px;
     font-weight: bold;
 }
-
 .bg-wa { background: #25D366; }
 .bg-fb { background: #1877F2; }
 .bg-tg { background: #0088cc; }
 .bg-x { background: #000; }
-
 </style>
 </head>
 <body>
 
-<div class="container mt-5 mb-5">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7">
-            <div class="card p-4 shadow">
+            <div class="card shadow">
 
-                <h4 class="text-center mb-4">🚀 نظام اختصار الروابط</h4>
+                <h4 class="text-center mb-4">🚀 منشئ الروابط المختصرة</h4>
 
                 <div class="mb-3">
                     <label>الرابط الأصلي *</label>
@@ -79,16 +75,13 @@ body {
                     إنشاء الرابط المختصر
                 </button>
 
-                <!-- النتيجة -->
                 <div class="mt-4 d-none" id="resultArea">
                     <hr>
                     <label class="text-success">تم إنشاء الرابط بنجاح:</label>
-
                     <div class="input-group mb-3">
                         <input type="text" id="finalLink" class="form-control text-center" readonly>
                         <button class="btn btn-secondary" onclick="copyLink()">نسخ</button>
                     </div>
-
                     <div class="text-center">
                         <a id="shareWa" target="_blank" class="share-btn bg-wa">WA</a>
                         <a id="shareFb" target="_blank" class="share-btn bg-fb">FB</a>
@@ -103,9 +96,7 @@ body {
 </div>
 
 <script>
-
-// ضع هنا رابط Function create على Supabase
-const API_URL = "https://qykppopnwedvjylcetar.supabase.co/functions/v1/create";
+const API_URL = "https://thedailyinsidernews.is-a.software/functions/v1/create";
 
 function isValidURL(url) {
     try { new URL(url); return true } catch { return false }
@@ -128,51 +119,41 @@ async function generateLink() {
     }
 
     const btn = document.getElementById("createBtn");
-    btn.innerHTML = "جاري الإنشاء...";
     btn.disabled = true;
+    btn.innerHTML = "جاري الإنشاء...";
 
     try {
-        const response = await fetch(API_URL, {
+        const res = await fetch(API_URL, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                title: title,
-                description: desc,
-                image: img,
-                target: target
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title, description: desc, image: img, target })
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            alert("خطأ من السيرفر: " + errorText);
-            btn.innerHTML = "إنشاء الرابط المختصر";
+        if (!res.ok) {
+            const text = await res.text();
+            alert("خطأ من السيرفر: " + text);
             btn.disabled = false;
+            btn.innerHTML = "إنشاء الرابط المختصر";
             return;
         }
 
-        const data = await response.json();
-
+        const data = await res.json();
         document.getElementById("finalLink").value = data.shortUrl;
         document.getElementById("resultArea").classList.remove("d-none");
 
         setupSharing(data.shortUrl, title);
 
-    } catch (error) {
-        alert("حدث خطأ أثناء الإنشاء: " + error.message);
+    } catch (e) {
+        alert("حدث خطأ أثناء الإنشاء: " + e.message);
     }
 
-    btn.innerHTML = "إنشاء الرابط المختصر";
     btn.disabled = false;
+    btn.innerHTML = "إنشاء الرابط المختصر";
 }
 
 function copyLink() {
     const link = document.getElementById("finalLink").value;
-    navigator.clipboard.writeText(link).then(() => {
-        alert("تم النسخ بنجاح ✅");
-    });
+    navigator.clipboard.writeText(link).then(() => alert("تم النسخ بنجاح ✅"));
 }
 
 function setupSharing(url, title) {
@@ -188,7 +169,6 @@ function setupSharing(url, title) {
     document.getElementById("shareTg").href =
         `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
 }
-
 </script>
 
 </body>
