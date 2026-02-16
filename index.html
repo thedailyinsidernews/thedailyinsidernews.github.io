@@ -36,6 +36,7 @@ body {
     color: white;
     text-decoration: none;
     margin: 5px;
+    font-weight: bold;
 }
 
 .bg-wa { background: #25D366; }
@@ -103,19 +104,14 @@ body {
 
 <script>
 
+// ضع هنا رابط Function create على Supabase
 const API_URL = "https://qykppopnwedvjylcetar.supabase.co/functions/v1/create";
 
 function isValidURL(url) {
-    try {
-        new URL(url);
-        return true;
-    } catch {
-        return false;
-    }
+    try { new URL(url); return true } catch { return false }
 }
 
 async function generateLink() {
-
     const target = document.getElementById('targetUrl').value.trim();
     const title = document.getElementById('linkTitle').value.trim();
     const desc = document.getElementById('linkDesc').value.trim();
@@ -150,7 +146,11 @@ async function generateLink() {
         });
 
         if (!response.ok) {
-            throw new Error("Server error");
+            const errorText = await response.text();
+            alert("خطأ من السيرفر: " + errorText);
+            btn.innerHTML = "إنشاء الرابط المختصر";
+            btn.disabled = false;
+            return;
         }
 
         const data = await response.json();
@@ -161,7 +161,7 @@ async function generateLink() {
         setupSharing(data.shortUrl, title);
 
     } catch (error) {
-        alert("حدث خطأ أثناء إنشاء الرابط");
+        alert("حدث خطأ أثناء الإنشاء: " + error.message);
     }
 
     btn.innerHTML = "إنشاء الرابط المختصر";
