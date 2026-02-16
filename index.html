@@ -5,51 +5,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منشئ الروابط المختصرة</title>
+    <!-- مكتبة البوتستراب للتصميم -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- مكتبة الأيقونات (FontAwesome) لأيقونات السوشيال ميديا -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         body { background-color: #f5f8fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .card { border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .btn-twitter { background-color: #1da1f2; color: white; border: none; }
-        .btn-twitter:hover { background-color: #0d8ddb; color: white; }
+        .btn-main { background-color: #1da1f2; color: white; border: none; font-weight: bold; }
+        .btn-main:hover { background-color: #0d8ddb; color: white; }
+        
+        /* استايل أزرار المشاركة */
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin: 0 5px;
+            transition: transform 0.2s;
+        }
+        .share-btn:hover { transform: scale(1.1); color: white; }
+        .bg-whatsapp { background-color: #25D366; }
+        .bg-facebook { background-color: #1877F2; }
+        .bg-twitter { background-color: #000000; } /* شعار X أسود */
+        .bg-telegram { background-color: #0088cc; }
+        .bg-copy { background-color: #6c757d; }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card p-4">
-                    <h3 class="text-center mb-4">أداة اختصار الروابط (ستايل تويتر)</h3>
+                    <h3 class="text-center mb-4"><i class="fas fa-link text-primary"></i> أداة اختصار الروابط</h3>
                     
                     <div class="mb-3">
-                        <label>الرابط الأصلي (الهدف):</label>
+                        <label class="fw-bold">الرابط الأصلي (الهدف):</label>
                         <input type="url" id="targetUrl" class="form-control" placeholder="https://example.com" required>
                     </div>
 
                     <div class="mb-3">
-                        <label>عنوان الرابط (Title):</label>
-                        <input type="text" id="linkTitle" class="form-control" placeholder="مثال: خبر عاجل..." required>
+                        <label class="fw-bold">عنوان الرابط (Title):</label>
+                        <input type="text" id="linkTitle" class="form-control" placeholder="مثال: شاهد قبل الحذف..." required>
                     </div>
 
                     <div class="mb-3">
-                        <label>الوصف (Description):</label>
+                        <label class="fw-bold">الوصف (Description):</label>
                         <textarea id="linkDesc" class="form-control" placeholder="وصف قصير يظهر تحت العنوان"></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label>رابط الصورة (Image URL):</label>
+                        <label class="fw-bold">رابط الصورة (Image URL):</label>
                         <input type="url" id="linkImg" class="form-control" placeholder="https://example.com/image.jpg" required>
                     </div>
 
-                    <button onclick="generateLink()" class="btn btn-twitter w-100">إنشاء الرابط المختصر</button>
+                    <button onclick="generateLink()" class="btn btn-main w-100 py-2">
+                        <i class="fas fa-magic"></i> إنشاء الرابط المختصر
+                    </button>
 
-                    <div class="mt-4 d-none" id="resultArea">
-                        <label>الرابط الجاهز للنشر:</label>
-                        <div class="input-group">
-                            <input type="text" id="finalLink" class="form-control" readonly>
-                            <button class="btn btn-secondary" onclick="copyLink()">نسخ</button>
+                    <!-- منطقة النتيجة (مخفية في البداية) -->
+                    <div class="mt-4 d-none text-center" id="resultArea">
+                        <hr>
+                        <label class="mb-2 fw-bold text-success">تم تجهيز الرابط بنجاح!</label>
+                        
+                        <div class="input-group mb-3">
+                            <input type="text" id="finalLink" class="form-control text-center" readonly style="background: #e9ecef;">
+                            <button class="btn btn-secondary" onclick="copyLink()">
+                                <i class="fas fa-copy"></i> نسخ
+                            </button>
                         </div>
-                        <small class="text-muted">انسخ هذا الرابط وانشره في تويتر</small>
+
+                        <p class="text-muted mb-2">شارك الرابط مباشرة:</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" id="shareWa" target="_blank" class="share-btn bg-whatsapp" title="مشاركة عبر واتساب"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#" id="shareFb" target="_blank" class="share-btn bg-facebook" title="مشاركة عبر فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" id="shareTw" target="_blank" class="share-btn bg-twitter" title="مشاركة عبر تويتر"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#" id="shareTg" target="_blank" class="share-btn bg-telegram" title="مشاركة عبر تيليجرام"><i class="fab fa-telegram-plane"></i></a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -57,32 +97,65 @@
 
     <script>
         function generateLink() {
-            // الحصول على رابط المستودع الخاص بك
-            // يرجى تغيير هذا الرابط ليتوافق مع اسم حسابك واسم المستودع
-            // مثال: https://username.github.io/repo-name/go.html
+            // تحديد الرابط الأساسي بناءً على مكان الملف
             const baseURL = window.location.href.replace('index.html', '') + 'go.html';
 
-            const target = encodeURIComponent(document.getElementById('targetUrl').value);
-            const title = encodeURIComponent(document.getElementById('linkTitle').value);
-            const desc = encodeURIComponent(document.getElementById('linkDesc').value);
-            const img = encodeURIComponent(document.getElementById('linkImg').value);
+            const target = document.getElementById('targetUrl').value;
+            const titleRaw = document.getElementById('linkTitle').value;
+            const desc = document.getElementById('linkDesc').value;
+            const img = document.getElementById('linkImg').value;
 
-            if(!target || !title || !img) {
-                alert('يرجى ملء جميع الحقول المطلوبة');
+            // التحقق من الحقول
+            if(!target || !titleRaw || !img) {
+                alert('يرجى ملء جميع الحقول المطلوبة (الرابط، العنوان، الصورة)');
                 return;
             }
 
-            const finalURL = `${baseURL}?t=${title}&d=${desc}&i=${img}&u=${target}`;
+            // تشفير البيانات لتكون صالحة في الرابط
+            const encodedTarget = encodeURIComponent(target);
+            const encodedTitle = encodeURIComponent(titleRaw);
+            const encodedDesc = encodeURIComponent(desc);
+            const encodedImg = encodeURIComponent(img);
+
+            // تكوين الرابط النهائي
+            const finalURL = `${baseURL}?t=${encodedTitle}&d=${encodedDesc}&i=${encodedImg}&u=${encodedTarget}`;
             
+            // عرض الرابط في الحقل
             document.getElementById('finalLink').value = finalURL;
             document.getElementById('resultArea').classList.remove('d-none');
+
+            // === تحديث روابط المشاركة ===
+            
+            // 1. واتساب
+            const waLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(titleRaw + "\n" + finalURL)}`;
+            document.getElementById('shareWa').href = waLink;
+
+            // 2. فيسبوك
+            const fbLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(finalURL)}`;
+            document.getElementById('shareFb').href = fbLink;
+
+            // 3. تويتر (X)
+            const twLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(titleRaw)}&url=${encodeURIComponent(finalURL)}`;
+            document.getElementById('shareTw').href = twLink;
+
+            // 4. تيليجرام
+            const tgLink = `https://t.me/share/url?url=${encodeURIComponent(finalURL)}&text=${encodeURIComponent(titleRaw)}`;
+            document.getElementById('shareTg').href = tgLink;
         }
 
         function copyLink() {
             const copyText = document.getElementById("finalLink");
             copyText.select();
+            copyText.setSelectionRange(0, 99999); // للهواتف
             document.execCommand("copy");
-            alert("تم نسخ الرابط!");
+            
+            // تغيير نص الزر لثانية واحدة كإشعار
+            const btn = document.querySelector('.btn-secondary');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> تم!';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 1500);
         }
     </script>
 </body>
