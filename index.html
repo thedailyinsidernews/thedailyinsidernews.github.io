@@ -99,6 +99,8 @@
             // تحديد الرابط الأساسي بناءً على مكان الملف
 const baseURL = "https://qykppopnwedvjylcetar.supabase.co/functions/v1/twitter-share";
 
+const finalURL = `${baseURL}?t=${encodedTitle}&d=${encodedDesc}&i=${encodedImg}&u=${encodedTarget}`;
+
             const target = document.getElementById('targetUrl').value;
             const titleRaw = document.getElementById('linkTitle').value;
             const desc = document.getElementById('linkDesc').value;
@@ -159,5 +161,6 @@ const baseURL = "https://qykppopnwedvjylcetar.supabase.co/functions/v1/twitter-s
     </script>
 </body>
 </html>
+
 
 
