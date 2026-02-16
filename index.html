@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>نظام اختصار الروابط</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منشئ الروابط المختصرة</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- مكتبة البوتستراب للتصميم -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
-body {
-    background: #f4f6f9;
-    font-family: Tahoma, sans-serif;
-}
-.card {
-    border-radius: 15px;
-    padding: 20px;
-    margin-top: 50px;
-}
-.btn-main {
-    background: #0d6efd;
-    border: none;
-}
-.btn-main:hover {
-    background: #0b5ed7;
-}
-.share-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-decoration: none;
-    margin: 5px;
-    font-weight: bold;
-}
-.bg-wa { background: #25D366; }
-.bg-fb { background: #1877F2; }
-.bg-tg { background: #0088cc; }
-.bg-x { background: #000; }
-</style>
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Tahoma, sans-serif;
+        }
+        .card {
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .btn-main {
+            background: #0d6efd;
+            border: none;
+        }
+        .btn-main:hover {
+            background: #0b5ed7;
+        }
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            margin: 5px;
+            font-weight: bold;
+        }
+        .bg-wa { background: #25D366; }
+        .bg-fb { background: #1877F2; }
+        .bg-tg { background: #0088cc; }
+        .bg-x { background: #000; }
+    </style>
 </head>
 <body>
 
@@ -108,6 +109,7 @@ async function generateLink() {
     const desc = document.getElementById('linkDesc').value.trim();
     const img = document.getElementById('linkImg').value.trim();
 
+    // التحقق من الحقول
     if (!target || !title) {
         alert("يرجى ملء الحقول المطلوبة");
         return;
@@ -141,6 +143,7 @@ async function generateLink() {
         document.getElementById("finalLink").value = data.shortUrl;
         document.getElementById("resultArea").classList.remove("d-none");
 
+        // إعداد المشاركة
         setupSharing(data.shortUrl, title);
 
     } catch (e) {
