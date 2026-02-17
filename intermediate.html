@@ -1,111 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirecting...</title>
-  <!-- Open Graph / Facebook -->
-<meta property="og:title" content="News Title">
-<meta property="og:description" content="News description here">
-<meta property="og:image" content="https://via.placeholder.com/400x200?text=No+Image">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://thedailyinsidernews.is-a.software/intermediate.html?target=...">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="News Title">
-<meta name="twitter:description" content="News description here">
-<meta name="twitter:image" content="https://via.placeholder.com/400x200?text=No+Image">
-
-<style>
-  body {
-    font-family: system-ui, sans-serif;
-    background: #f3f4f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-  }
-  .card {
-    background: white;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 90%;
-    padding: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-  .card img {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
-  .title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  .desc {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: #555;
-  }
-  button {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  #targetBtn { background: #16a34a; color: white; }
-  button:active { transform: scale(0.98); }
-</style>
-</head>
-
-<body>
-
-<div class="card">
-  <img id="newsImage" src="" alt="News Image">
-  <div class="title" id="newsTitle"></div>
-  <div class="desc" id="newsDesc"></div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
   
-  <button id="targetBtn">Go to News</button>
-</div>
+  <!-- Meta Tags for Social Media Preview -->
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="https://via.placeholder.com/400x200?text=No+Image">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
 
-<script>
-  // Auto ad URL
-  const AD_URL = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="https://via.placeholder.com/400x200?text=No+Image">
 
-  // Get query params
-  const params = new URLSearchParams(window.location.search);
-  const target = params.get("target") || "#";
-  const title = params.get("title") || "News Title";
-  const image = params.get("image") || "https://via.placeholder.com/400x200?text=No+Image";
-  const description = params.get("desc") || "";
+  <link rel="stylesheet" href="styles.css">
 
-  // Set content
-  document.getElementById("newsTitle").innerText = title;
-  document.getElementById("newsDesc").innerText = description;
-  document.getElementById("newsImage").src = image;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get the 'target', 'title', 'desc', 'image' from query parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const target = urlParams.get('target') || '#'; // Default to '#' if not found
+      const title = urlParams.get('title') || 'Default Title';
+      const description = urlParams.get('desc') || 'No description available';
+      const image = urlParams.get('image') || 'https://via.placeholder.com/400x200?text=No+Image';
 
-  // Auto open ad in new tab
-  window.open(AD_URL, "_blank");
+      // Update the Meta Tags dynamically
+      document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+      document.querySelector('meta[property="og:image"]').setAttribute('content', image);
 
-  // Redirect to target after 1 second
-  setTimeout(() => {
-    window.location.href = target;
-  }, 1000);
+      document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+      document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
+      document.querySelector('meta[name="twitter:image"]').setAttribute('content', image);
 
-  // Optional: Button in case auto redirect fails
-  document.getElementById("targetBtn").onclick = () => {
-    window.location.href = target;
-  };
-</script>
+      // Optional: Open advertisement in new tab (if you have an ad URL)
+      const adUrl = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
+      window.open(adUrl, "_blank");
 
+      // Redirect to the target after 1 second
+      setTimeout(() => {
+        window.location.href = target;
+      }, 1000);
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="message">
+      <h1>Redirecting...</h1>
+      <p>We are redirecting you to the original link. Please wait...</p>
+    </div>
+  </div>
 </body>
 </html>
