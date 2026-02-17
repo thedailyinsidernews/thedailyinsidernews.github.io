@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جاري التوجيه...</title>
+
+<style>
+body {
+  font-family: system-ui;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+button {
+  margin-top: 20px;
+  padding: 15px;
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>مرحباً 👋</h2>
+  <p>اضغط للمتابعة</p>
+  <button onclick="go()">اضغط هنا 🚀</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const target = params.get("target");
+
+const AD_URL = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
+
+function go() {
+  window.open(AD_URL, "_blank");
+  setTimeout(() => {
+    window.location.href = target;
+  }, 500);
+}
+</script>
+
+</body>
+</html>
