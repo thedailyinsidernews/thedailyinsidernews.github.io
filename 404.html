@@ -1,0 +1,9 @@
+<script>
+  const path = window.location.pathname.substring(1); // يأخذ <id>
+  if (path) {
+    window.location.href = `https://nnynvpjudlcuejcuvszx.supabase.co/functions/v1/r/${path}`;
+  } else {
+    // الصفحة الرئيسية
+    window.location.href = "/";
+  }
+</script>
