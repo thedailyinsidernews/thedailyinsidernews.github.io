@@ -1,64 +1,97 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>جاري التوجيه...</title>
-
+<title>Redirecting...</title>
 <style>
-body {
-  font-family: system-ui;
-  background: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-}
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-button {
-  margin-top: 20px;
-  padding: 15px;
-  width: 100%;
-  background: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .card {
+    background: white;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  .card img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  .title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .desc {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  #targetBtn { background: #16a34a; color: white; }
+  button:active { transform: scale(0.98); }
 </style>
 </head>
 
 <body>
 
 <div class="card">
-  <h2>مرحباً 👋</h2>
-  <p>اضغط للمتابعة</p>
-  <button onclick="go()">اضغط هنا 🚀</button>
+  <img id="newsImage" src="" alt="News Image">
+  <div class="title" id="newsTitle"></div>
+  <div class="desc" id="newsDesc"></div>
+  
+  <button id="targetBtn">Go to News</button>
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const target = params.get("target");
+  // Auto ad URL
+  const AD_URL = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
 
-const AD_URL = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
+  // Get query params
+  const params = new URLSearchParams(window.location.search);
+  const target = params.get("target") || "#";
+  const title = params.get("title") || "News Title";
+  const image = params.get("image") || "https://via.placeholder.com/400x200?text=No+Image";
+  const description = params.get("desc") || "";
 
-function go() {
+  // Set content
+  document.getElementById("newsTitle").innerText = title;
+  document.getElementById("newsDesc").innerText = description;
+  document.getElementById("newsImage").src = image;
+
+  // Auto open ad in new tab
   window.open(AD_URL, "_blank");
+
+  // Redirect to target after 1 second
   setTimeout(() => {
     window.location.href = target;
-  }, 500);
-}
+  }, 1000);
+
+  // Optional: Button in case auto redirect fails
+  document.getElementById("targetBtn").onclick = () => {
+    window.location.href = target;
+  };
 </script>
 
 </body>
