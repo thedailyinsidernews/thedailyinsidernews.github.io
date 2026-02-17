@@ -4,31 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirecting...</title>
-  
-  <!-- Meta Tags for Social Media Preview -->
+
+  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="">
   <meta property="og:description" content="">
   <meta property="og:image" content="https://via.placeholder.com/400x200?text=No+Image">
   <meta property="og:type" content="website">
   <meta property="og:url" content="">
 
+  <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="">
   <meta name="twitter:description" content="">
-  <meta name="twitter:image" content="https://via.placeholder.com/400x200?text=No+Image">
+  <meta name="twitter:image" content="">
+  <meta name="twitter:text:title" content=""> <!-- مهم لتويتر -->
 
-  <link rel="stylesheet" href="styles.css">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/styles.css">
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Get the 'target', 'title', 'desc', 'image' from query parameters
+      // قراءة البيانات من query parameters
       const urlParams = new URLSearchParams(window.location.search);
-      const target = urlParams.get('target') || '#'; // Default to '#' if not found
+      const target = urlParams.get('target') || '#';
       const title = urlParams.get('title') || 'Default Title';
       const description = urlParams.get('desc') || 'No description available';
       const image = urlParams.get('image') || 'https://via.placeholder.com/400x200?text=No+Image';
 
-      // Update the Meta Tags dynamically
+      // تحديث Meta Tags ديناميكيًا
       document.querySelector('meta[property="og:title"]').setAttribute('content', title);
       document.querySelector('meta[property="og:description"]').setAttribute('content', description);
       document.querySelector('meta[property="og:image"]').setAttribute('content', image);
@@ -36,15 +39,14 @@
       document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
       document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
       document.querySelector('meta[name="twitter:image"]').setAttribute('content', image);
+      document.querySelector('meta[name="twitter:text:title"]').setAttribute('content', title); // جديد لتويتر
 
-      // Optional: Open advertisement in new tab (if you have an ad URL)
+      // Optional: فتح إعلان في نافذة جديدة
       const adUrl = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
       window.open(adUrl, "_blank");
 
-      // Redirect to the target after 1 second
-      setTimeout(() => {
-        window.location.href = target;
-      }, 1000);
+      // Redirect بعد ثانية واحدة
+      setTimeout(() => { window.location.href = target; }, 1000);
     });
   </script>
 </head>
