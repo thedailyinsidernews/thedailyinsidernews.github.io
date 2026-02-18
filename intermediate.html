@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HotTrends | Article</title>
+<title>HotTrends | Redirecting...</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
 <style>
   body {
@@ -22,6 +24,17 @@
   }
   h1 {
     color: #2a5298;
+    margin-bottom: 10px;
+  }
+  img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
   }
   .loader {
     border: 6px solid #eee;
@@ -32,7 +45,10 @@
     animation: spin 1s linear infinite;
     margin: 30px auto;
   }
-  @keyframes spin { 0%{transform:rotate(0);}100%{transform:rotate(360deg);} }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   .footer {
     text-align:center;
     font-size:12px;
@@ -46,40 +62,63 @@
 
 <div class="content" id="articleContent">
   <h1 id="title">Loading article...</h1>
+  <img id="articleImg" style="display:none;">
   <p id="bodyText"></p>
   <div class="loader" id="loader"></div>
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  if(!id){
-    document.getElementById("title").textContent = "Article not found";
-    document.getElementById("loader").style.display = "none";
-    return;
-  }
-
-  // ** load your article from Supabase or API **
-  // For example (dummy text):
-  document.getElementById("title").textContent = "Here is your Article Title";
-  document.getElementById("bodyText").innerHTML = `
-    This is the content of the article with id: <b>${id}</b>.
-    <br><br>
-    <!-- load actual content using fetch/supabase -->
-  `;
-
-  // after delay redirect to ad
-  setTimeout(function(){
-    window.location.href = "https://actingprofessionshiny.com/dtc1yaw0b4?key=dedc6b5d3fa1c097637ca6ad508c057a";
-  }, 2500); // 2.5s delay
-
-});
-</script>
-
 <div class="footer">🔥 Powered by HotTrends</div>
+
+<script>
+  // تهيئة Supabase
+  var supabase = window.supabase.createClient(
+    "https://nnynvpjudlcuejcuvszx.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ueW52cGp1ZGxjdWVqY3V2c3p4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMjU1MDUsImV4cCI6MjA4NjkwMTUwNX0.1lRjMTGaXJUoqum_pS9TyzDG9w-fwToO61VcC8yLYxg"
+  );
+
+  document.addEventListener("DOMContentLoaded", async function(){
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if(!id){
+      document.getElementById("title").textContent = "Article not found";
+      document.getElementById("loader").style.display = "none";
+      return;
+    }
+
+    // جلب المقالة من Supabase
+    const { data, error } = await supabase
+      .from("links")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if(error || !data) {
+      document.getElementById("title").textContent = "Article not found";
+      document.getElementById("loader").style.display = "none";
+      return;
+    }
+
+    // عرض المقالة
+    document.getElementById("title").textContent = data.title;
+
+    if(data.image){
+      const img = document.getElementById("articleImg");
+      img.src = data.image;
+      img.style.display = "block";
+    }
+
+    document.getElementById("bodyText").innerHTML = data.description || "";
+    document.getElementById("loader").style.display = "none";
+
+    // بعد 3 ثوانٍ ننتقل للإعلان
+    setTimeout(function(){
+      window.location.href = "https://actingprofessionshiny.com/dtc1yaw0b4?key=dedc6b5d3fa1c097637ca6ad508c057a";
+    }, 3000);
+
+  });
+</script>
 
 </body>
 </html>
