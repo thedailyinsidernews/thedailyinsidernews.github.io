@@ -3,28 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HotTrends | Redirecting...</title>
-
-<!-- Open Graph Meta Tags -->
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://via.placeholder.com/400x200?text=No+Image">
-<meta property="og:type" content="website">
-<meta property="og:url" content="">
-
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="">
-<meta name="twitter:text:title" content="">
+<title>HotTrends | Access Article</title>
 
 <style>
   body { font-family: Arial,sans-serif; background:linear-gradient(135deg,#1e3c72,#2a5298); display:flex; justify-content:center; align-items:center; height:100vh; margin:0; color:#fff; }
   .card { background:#fff; color:#333; padding:30px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.2); text-align:center; max-width:400px; width:90%; }
   .card img { width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px; display:none; }
-  .loader { border:4px solid #eee; border-top:4px solid #2a5298; border-radius:50%; width:35px; height:35px; animation:spin 1s linear infinite; margin:20px auto; }
-  @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
   .btn { display:inline-block; margin-top:15px; padding:10px 18px; background:#2a5298; color:#fff; text-decoration:none; border-radius:8px; font-weight:bold; cursor:pointer; }
   .btn:hover{ background:#1e3c72; }
   .footer{ margin-top:15px; font-size:12px; color:#888; }
@@ -34,44 +18,34 @@
 document.addEventListener("DOMContentLoaded", function() {
   const params = new URLSearchParams(window.location.search);
   const target = params.get("target") || "#";
-  const title = params.get("title") || "HotTrends - Trending Now";
-  const desc = params.get("desc") || "Discover what's buzzing now on HotTrends.";
+  const title = params.get("title") || "HotTrends - Trending Article";
+  const desc = params.get("desc") || "Read the latest trending article now.";
   const image = params.get("image") || "https://via.placeholder.com/400x200?text=No+Image";
 
-  // تحديث Meta Tags ديناميكيًا
-  document.querySelector('meta[property="og:title"]').setAttribute('content', title);
-  document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
-  document.querySelector('meta[property="og:image"]').setAttribute('content', image);
-  document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
-  document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
-  document.querySelector('meta[name="twitter:image"]').setAttribute('content', image);
-  document.querySelector('meta[name="twitter:text:title"]').setAttribute('content', title);
-
-  // تحديث الصفحة
+  // تحديث المحتوى على الصفحة
   document.getElementById("pageTitle").textContent = title;
   document.getElementById("pageDesc").textContent = desc;
   const imgEl = document.getElementById("pageImage");
   imgEl.src = image;
   imgEl.style.display = "block";
 
-  // الزر ينقل مباشرة للمقال
-  document.getElementById("continueBtn").addEventListener("click", function() {
-    window.location.replace(target);
-  });
+  const adUrl = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
 
-  // تحويل تلقائي بعد 3 ثواني لو لم يضغط المستخدم
-  setTimeout(() => { window.location.replace(target); }, 3000);
+  // الزر يفتح الإعلان ثم يحوّل المستخدم للمقال
+  document.getElementById("continueBtn").addEventListener("click", function() {
+    window.open(adUrl, "_blank");
+    setTimeout(() => { window.location.replace(target); }, 500);
+  });
 });
 </script>
 </head>
 
 <body>
 <div class="card">
-  <img id="pageImage" alt="Preview">
-  <h2 id="pageTitle">Redirecting...</h2>
-  <p id="pageDesc">Preparing your trending content...</p>
-  <div class="loader"></div>
-  <div class="btn" id="continueBtn">Go to Article</div>
+  <img id="pageImage" alt="Article Preview">
+  <h2 id="pageTitle">Article Title</h2>
+  <p id="pageDesc">Article Description</p>
+  <div class="btn" id="continueBtn">Continue to Article</div>
   <div class="footer">Powered by 🔥 HotTrends</div>
 </div>
 </body>
