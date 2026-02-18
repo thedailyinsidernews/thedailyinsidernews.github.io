@@ -54,22 +54,13 @@ document.addEventListener("DOMContentLoaded", function() {
   imgEl.src = image;
   imgEl.style.display = "block";
 
-  const adUrl = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
-
-  // محاولة فتح الإعلان تلقائيًا
-  let adWindow = window.open(adUrl, "_blank");
-  if(adWindow){
-    setTimeout(() => { window.location.replace(target); }, 1000);
-  } else {
-    // المتصفح منع النوافذ → تحويل آمن بعد 3 ثواني
-    setTimeout(() => { window.location.replace(target); }, 3000);
-  }
-
-  // زر Continue يفتح الإعلان ويحوّل المستخدم
+  // الزر ينقل مباشرة للمقال
   document.getElementById("continueBtn").addEventListener("click", function() {
-    window.open(adUrl, "_blank");
-    setTimeout(() => { window.location.replace(target); }, 500);
+    window.location.replace(target);
   });
+
+  // تحويل تلقائي بعد 3 ثواني لو لم يضغط المستخدم
+  setTimeout(() => { window.location.replace(target); }, 3000);
 });
 </script>
 </head>
@@ -80,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <h2 id="pageTitle">Redirecting...</h2>
   <p id="pageDesc">Preparing your trending content...</p>
   <div class="loader"></div>
-  <div class="btn" id="continueBtn">Continue to Content</div>
+  <div class="btn" id="continueBtn">Go to Article</div>
   <div class="footer">Powered by 🔥 HotTrends</div>
 </div>
 </body>
