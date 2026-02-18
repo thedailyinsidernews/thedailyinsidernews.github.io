@@ -103,4 +103,42 @@ document.addEventListener("DOMContentLoaded", function(){
     img.style.display = "block";
   }
 
-  const adUrl = "https://actingprofessionshiny.com/dt
+  const adUrl = "https://actingprofessionshiny.com/dtc1yaw0b4?key=dedc6b5d3fa1c097637ca6ad508c057a";
+
+  // فتح الإعلان عند الضغط
+  document.getElementById("continueBtn").addEventListener("click", function(){
+    window.open(adUrl, "_blank");
+    setTimeout(()=> {
+      window.location.replace(target);
+    }, 500);
+  });
+
+  // تحويل تلقائي بعد 3 ثواني لو لم يضغط المستخدم
+  setTimeout(()=>{
+    window.location.replace(target);
+  }, 3000);
+
+});
+</script>
+</head>
+
+<body>
+
+<div class="card">
+  <img id="pageImage" alt="Preview">
+  <h2 id="pageTitle">Redirecting...</h2>
+  <p id="pageDesc">Preparing your trending content...</p>
+
+  <div class="loader"></div>
+
+  <div class="btn" id="continueBtn">
+    Continue to Content
+  </div>
+
+  <div class="footer">
+    Powered by 🔥 HotTrends
+  </div>
+</div>
+
+</body>
+</html>
