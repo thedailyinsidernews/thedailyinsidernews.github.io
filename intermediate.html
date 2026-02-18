@@ -5,11 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HotTrends | Redirecting...</title>
 
-<!-- Open Graph -->
-<meta property="og:title" content="HotTrends - Trending Now">
-<meta property="og:description" content="Discover what's buzzing now on HotTrends.">
-<meta property="og:image" content="https://hottrends.is-a.software/preview.jpg">
-<meta property="og:url" content="https://hottrends.is-a.software/">
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://via.placeholder.com/400x200?text=No+Image">
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="">
+<meta name="twitter:text:title" content="">
 
 <style>
   body {
@@ -49,10 +57,7 @@
     animation: spin 1s linear infinite;
     margin: 20px auto;
   }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   .btn {
     display: inline-block;
     margin-top: 15px;
@@ -64,63 +69,57 @@
     font-weight: bold;
     cursor: pointer;
   }
-  .btn:hover {
-    background: #1e3c72;
-  }
-  .footer {
-    margin-top: 15px;
-    font-size: 12px;
-    color: #888;
-  }
+  .btn:hover { background: #1e3c72; }
+  .footer { margin-top: 15px; font-size: 12px; color: #888; }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const params = new URLSearchParams(window.location.search);
-  const target = params.get("target");
-  const title = params.get("title");
-  const desc = params.get("desc");
-  const image = params.get("image");
+  const target = params.get("target") || "#";
+  const title = params.get("title") || "HotTrends - Trending Now";
+  const desc = params.get("desc") || "Discover what's buzzing now on HotTrends.";
+  const image = params.get("image") || "https://via.placeholder.com/400x200?text=No+Image";
 
-  if(!target){
-    document.body.innerHTML = "<h2 style='color:white'>❌ No target URL provided.</h2>";
-    return;
-  }
+  // تحديث Meta Tags ديناميكيًا
+  document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+  document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+  document.querySelector('meta[property="og:image"]').setAttribute('content', image);
+  document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+  document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+  document.querySelector('meta[name="twitter:image"]').setAttribute('content', image);
+  document.querySelector('meta[name="twitter:text:title"]').setAttribute('content', title);
 
-  if(title) document.getElementById("pageTitle").textContent = title;
-  if(desc) document.getElementById("pageDesc").textContent = desc;
-  if(image){
-    const img = document.getElementById("pageImage");
-    img.src = image;
-    img.style.display = "block";
-  }
+  // تحديث المحتوى على الصفحة
+  document.getElementById("pageTitle").textContent = title;
+  document.getElementById("pageDesc").textContent = desc;
+  const imgEl = document.getElementById("pageImage");
+  imgEl.src = image;
+  imgEl.style.display = "block";
 
-  const adUrl = "https://actingprofessionshiny.com/dtc1yaw0b4?key=dedc6b5d3fa1c097637ca6ad508c057a";
+  // رابط الإعلان
+  const adUrl = "https://actingprofessionshiny.com/apd3i9w8cf?key=1ca491697c381fe5291aaf85e43c7ec0";
 
-  // فتح الإعلان عند الضغط على الزر
+  // فتح الإعلان عند الضغط على الزر وتحويل المستخدم بعد 0.5 ثانية
   document.getElementById("continueBtn").addEventListener("click", function() {
     window.open(adUrl, "_blank");
-    setTimeout(() => {
-      window.location.replace(target);
-    }, 500);
+    setTimeout(() => { window.location.replace(target); }, 500);
   });
 
-  // تحويل تلقائي بعد 3 ثواني لو لم يضغط المستخدم
-  setTimeout(() => {
-    window.location.replace(target);
-  }, 3000);
+  // تحويل تلقائي بعد 3 ثواني إذا لم يضغط المستخدم، بدون فتح الإعلان تلقائيًا
+  setTimeout(() => { window.location.replace(target); }, 3000);
 });
 </script>
-
 </head>
+
 <body>
-  <div class="card">
-    <img id="pageImage" alt="Preview">
-    <h2 id="pageTitle">Redirecting...</h2>
-    <p id="pageDesc">Preparing your trending content...</p>
-    <div class="loader"></div>
-    <div class="btn" id="continueBtn">Continue to Content</div>
-    <div class="footer">Powered by 🔥 HotTrends</div>
-  </div>
+<div class="card">
+  <img id="pageImage" alt="Preview">
+  <h2 id="pageTitle">Redirecting...</h2>
+  <p id="pageDesc">Preparing your trending content...</p>
+  <div class="loader"></div>
+  <div class="btn" id="continueBtn">Continue to Content</div>
+  <div class="footer">Powered by 🔥 HotTrends</div>
+</div>
 </body>
 </html>
