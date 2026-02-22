@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HotTrends | Discover What’s Buzzing Now!</title>
 
+<!-- Supabase JS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<!-- FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- Open Graph Meta Tags -->
 <meta property="og:type" content="website" />
@@ -16,200 +20,356 @@
 <meta property="og:site_name" content="HotTrends" />
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+
   body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background-attachment: fixed;
     margin: 0;
     padding: 20px;
     color: #fff;
     min-height: 100vh;
   }
-  h1 {
+  
+  /* Header Styles */
+  .header-container {
     text-align: center;
+    margin-bottom: 30px;
+  }
+  h1 {
     color: #fff;
     margin-bottom: 5px;
-    font-weight: 700;
-    font-size: 2.8rem;
+    font-weight: 900;
+    font-size: 3rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
   }
   p.subtitle {
-    text-align: center;
-    color: #c0cce3;
-    margin-bottom: 20px;
-    font-weight: 400;
-    font-size: 1.3rem;
-    font-style: italic;
+    color: #a8c0ff;
+    margin-bottom: 25px;
+    font-weight: 300;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
   }
+
+  /* Search Bar */
+  .search-wrapper {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    position: relative;
+  }
+  .search-wrapper input {
+    width: 100%;
+    padding: 15px 25px 15px 50px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+  }
+  .search-wrapper input:focus {
+    box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+  }
+  .search-wrapper i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    font-size: 18px;
+  }
+
+  /* Grid & Cards */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 18px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1250px;
     margin: 0 auto;
   }
   .card {
     background: #fff;
     color: #2a5298;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   .card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 14px 38px rgba(0,0,0,0.3);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   }
   .card img {
     width: 100%;
-    height: 150px;
+    height: 180px;
     object-fit: cover;
+    border-bottom: 3px solid #2a5298;
   }
   .card-content {
-    padding: 18px 20px 12px 20px;
+    padding: 20px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
   .card-content h3 {
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
     font-weight: 700;
+    font-size: 1.2rem;
+    color: #1e3c72;
+    line-height: 1.4;
   }
   .card-content p {
     font-size: 14px;
-    margin-bottom: 14px;
-    color: #555a7c;
-    min-height: 56px;
+    margin-bottom: 20px;
+    color: #666;
+    flex-grow: 1;
+    line-height: 1.6;
   }
   .btn {
-    display: inline-block;
-    padding: 10px 18px;
-    background: #2a5298;
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
     margin-bottom: 15px;
   }
   .btn:hover {
-    background: #1e3c72;
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    transform: scale(1.02);
   }
+  
+  /* Share Buttons */
   .share-buttons {
     padding: 0 20px 20px 20px;
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
   }
   .share-buttons a {
-    flex: 1 1 45px;
+    flex: 1;
     text-align: center;
     color: white;
-    border-radius: 6px;
-    padding: 8px 0;
-    font-size: 14px;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 16px;
     text-decoration: none;
-    transition: background 0.3s ease;
-    font-weight: 700;
-  }
-  .share-buttons a.facebook {
-    background: #4267B2;
-  }
-  .share-buttons a.x {
-    background: #1DA1F2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: 18px;
-  }
-  .share-buttons a.linkedin {
-    background: #0077B5;
-  }
-  .share-buttons a.whatsapp {
-    background: #25D366;
+    transition: opacity 0.3s ease, transform 0.2s ease;
   }
   .share-buttons a:hover {
-    filter: brightness(0.85);
+    opacity: 0.8;
+    transform: translateY(-2px);
   }
-  #loading, #message {
+  .facebook { background: #1877F2; }
+  .x-twitter { background: #000000; }
+  .linkedin { background: #0A66C2; }
+  .whatsapp { background: #25D366; }
+
+  /* Loading Spinner */
+  #loading {
+    text-align: center;
+    margin-top: 50px;
+  }
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top: 5px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px auto;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Messages */
+  #message {
     text-align: center;
     margin-top: 30px;
-    font-size: 16px;
-    color: #c0cce3;
+    font-size: 1.2rem;
+    color: #a8c0ff;
   }
-  #message.error {
+  .error {
     color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+  }
+
+  /* Scroll to Top Button */
+  #scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #2a5298;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+  }
+  #scrollTopBtn:hover {
+    background-color: #1e3c72;
   }
 </style>
 </head>
 <body>
 
-<h1>🔥 HotTrends</h1>
-<p class="subtitle">Discover What’s Buzzing Now!</p>
+<div class="header-container">
+  <h1>🔥 HotTrends</h1>
+  <p class="subtitle">Discover What’s Buzzing Now!</p>
+</div>
 
+<!-- Search Bar -->
+<div class="search-wrapper">
+  <i class="fas fa-search"></i>
+  <input type="text" id="searchInput" placeholder="Search for trends, news, topics..." onkeyup="filterPosts()">
+</div>
+
+<!-- Posts Container -->
 <div id="posts" class="grid"></div>
-<div id="loading">Loading posts...</div>
+
+<!-- Loading & Messages -->
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Loading the latest trends...</p>
+</div>
 <div id="message"></div>
 
+<!-- Scroll to Top Button -->
+<button id="scrollTopBtn" onclick="scrollToTop()" title="Go to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
 <script>
-  var supabase = window.supabase.createClient(
+  // إعداد Supabase
+  const supabase = window.supabase.createClient(
     "https://nnynvpjudlcuejcuvszx.supabase.co",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ueW52cGp1ZGxjdWVqY3V2c3p4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMjU1MDUsImV4cCI6MjA4NjkwMTUwNX0.1lRjMTGaXJUoqum_pS9TyzDG9w-fwToO61VcC8yLYxg"
   );
 
+  let allPostsData = []; // متغير لحفظ البيانات من أجل البحث
+
   function urlEncode(str) {
-    return encodeURIComponent(str);
+    return encodeURIComponent(str || '');
   }
 
+  // دالة لجلب البيانات
   async function loadPosts() {
+    // إزالة limit(9) لجلب كل البيانات
     const { data, error } = await supabase
       .from("links")
       .select("*")
-      .order("id", { ascending: false })
-      .limit(9);
+      .order("id", { ascending: false });
 
     document.getElementById("loading").style.display = "none";
-
     const messageEl = document.getElementById("message");
 
     if (error) {
-      messageEl.innerHTML = "<div class='error'>" + error.message + "</div>";
+      messageEl.innerHTML = "<div class='error'><i class='fas fa-exclamation-triangle'></i> " + error.message + "</div>";
       console.error(error);
       return;
     }
 
     if (!data || data.length === 0) {
-      messageEl.textContent = "No posts found.";
+      messageEl.innerHTML = "No trends found right now. Check back later!";
       return;
     }
 
-    const container = document.getElementById("posts");
-    container.innerHTML = ""; // تنظيف المحتوى قبل الإضافة
+    allPostsData = data; // حفظ البيانات للمتغير العام
+    displayPosts(allPostsData); // عرض البيانات
+  }
 
-    data.forEach(post => {
+  // دالة لعرض البيانات في HTML
+  function displayPosts(posts) {
+    const container = document.getElementById("posts");
+    const messageEl = document.getElementById("message");
+    container.innerHTML = ""; 
+    messageEl.innerHTML = "";
+
+    if (posts.length === 0) {
+      messageEl.innerHTML = "No results match your search.";
+      return;
+    }
+
+    posts.forEach(post => {
       const postUrl = `https://hottrends.is-a.software/${post.id}`;
       const encodedUrl = urlEncode(postUrl);
       const encodedTitle = urlEncode(post.title);
+      const imageUrl = post.image || 'https://via.placeholder.com/400x180?text=No+Image';
+      
+      // اقتطاع الوصف إذا كان طويلاً جداً
+      let description = post.description || '';
+      if(description.length > 120) description = description.substring(0, 120) + '...';
 
       container.innerHTML += `
         <div class="card">
-          <img src="${post.image || 'https://via.placeholder.com/400x160?text=No+Image'}" alt="${post.title}" />
+          <img src="${imageUrl}" alt="${post.title}" loading="lazy" />
           <div class="card-content">
             <h3>${post.title}</h3>
-            <p>${post.description || ''}</p>
-            <a href="${postUrl}" class="btn" target="_blank" rel="noopener noreferrer">Read More</a>
+            <p>${description}</p>
+            <a href="${postUrl}" class="btn" target="_blank" rel="noopener noreferrer">
+               Read Full Story <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+            </a>
           </div>
           <div class="share-buttons">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" rel="noopener noreferrer" title="Share on Facebook" class="facebook">Facebook</a>
-            <a href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer" title="Share on X" class="x">X</a>
-            <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" class="linkedin">LinkedIn</a>
-            <a href="https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}" target="_blank" rel="noopener noreferrer" title="Share on WhatsApp" class="whatsapp">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" rel="noopener noreferrer" title="Facebook" class="facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer" title="X (Twitter)" class="x-twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}" target="_blank" rel="noopener noreferrer" title="WhatsApp" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
       `;
     });
   }
 
+  // دالة البحث والفلترة
+  function filterPosts() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const filteredData = allPostsData.filter(post => {
+      const title = (post.title || '').toLowerCase();
+      const desc = (post.description || '').toLowerCase();
+      return title.includes(query) || desc.includes(query);
+    });
+    displayPosts(filteredData);
+  }
+
+  // إظهار وإخفاء زر العودة للأعلى
+  window.onscroll = function() {
+    let scrollBtn = document.getElementById("scrollTopBtn");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  };
+
+  // وظيفة العودة للأعلى بسلاسة
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  // تشغيل دالة الجلب عند تحميل الصفحة
   loadPosts();
 </script>
 
