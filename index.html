@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HotTrends | Discover What’s Buzzing Now!</title>
 
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+
 <!-- Supabase JS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
@@ -259,13 +261,13 @@
 </button>
 
 <script>
-  // إعداد Supabase
-  const supabase = window.supabase.createClient(
+  // استخدمنا var بدلاً من const لحل مشكلة تعارض التعريف
+  var supabase = window.supabase.createClient(
     "https://nnynvpjudlcuejcuvszx.supabase.co",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ueW52cGp1ZGxjdWVqY3V2c3p4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMjU1MDUsImV4cCI6MjA4NjkwMTUwNX0.1lRjMTGaXJUoqum_pS9TyzDG9w-fwToO61VcC8yLYxg"
   );
 
-  let allPostsData = []; // متغير لحفظ البيانات من أجل البحث
+  var allPostsData = []; // استخدمنا var هنا أيضاً
 
   function urlEncode(str) {
     return encodeURIComponent(str || '');
@@ -273,7 +275,7 @@
 
   // دالة لجلب البيانات
   async function loadPosts() {
-    // إزالة limit(9) لجلب كل البيانات
+    // جلب كل البيانات بدون استخدام limit
     const { data, error } = await supabase
       .from("links")
       .select("*")
